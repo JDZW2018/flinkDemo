@@ -58,6 +58,7 @@ public class StreamingJob {
 					}
 				});
 
+		keyedEdits.print();
 		DataStream<Tuple2<String, Long>> result = keyedEdits
 				.timeWindow(Time.seconds(5))
 				.fold(new Tuple2<>("", 0L), new FoldFunction<WikipediaEditEvent, Tuple2<String, Long>>() {
@@ -69,7 +70,7 @@ public class StreamingJob {
 					}
 				});
 
-		result.print();
+		//result.print();
 		result.map(new MapFunction<Tuple2<String,Long>, String>() {
 					@Override
 					public String map(Tuple2<String, Long> tuple) {
